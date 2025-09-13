@@ -274,29 +274,37 @@
 
 
 
-**J : user stories for the add to Implement Notifications**
+**L : user stories for the add to Implement Notifications**
     **1.**
       **Title:**
-          As a user, I want to view real-time weather updates on the home screen so that I can plan my day effectively.
+          As a user, I want to receive a daily reminder notification so that I don’t forget to complete my tasks.
       **Acceptance Criteria:**
-          1. Example: A fitness app integrates a weather API to display whether it's sunny or rainy, helping users decide if they should work out indoors or outdoors.
-          2. Why: This provides users with relevant external data, improving app value.
+          1. Example: A productivity app sends a push notification at 9 AM, reminding users to review their to-do list.
+          2. Why: Encourages consistent app usage.
       **Story Points:** 1
 
   **2.**
       **Title:**
-          As a user, I want to see live currency conversion rates when making purchases so that I can make informed financial decisions.
+          As a user, I want to receive notifications about new features so that I can explore and benefit from them.
       **Acceptance Criteria:**
-          1. Example: An e-commerce app uses a currency exchange API to display product prices in the user's preferred currency.
-          2. Why: This creates a personalized and convenient experience.
+          1. Example: A streaming app sends a notification about newly added movies in the user's favorite genre.
+          2. Why: Drives engagement and satisfaction.
       **Story Points:** 1
 
   **3.**
       **Title:**
-          As a user, I want to see nearby restaurants on a map so that I can choose a dining location conveniently.
+          As a user, I want to turn off promotional notifications so that I can focus on essential updates only.
       **Acceptance Criteria:**
-          1. Example: A food delivery app integrates Google Maps API to display restaurants near the user's location.
-          2. Why: This enhances user navigation and helps users make better choices.
+          1. Example: A shopping app provides a settings option to disable promotional alerts but keep order updates active.
+          2. Why: Reduces user frustration and retains trust.
+      **Story Points:** 1
+
+  **4.**
+      **Title:**
+          As an admin, I want to send notifications to specific user groups so that I can target them with relevant information.
+      **Acceptance Criteria:**
+          1. Example: A fitness app admin sends a notification about a new yoga module to users who completed the beginner course.
+          2. Why: Enhances targeted communication and user engagement.
       **Story Points:** 1
 
 
