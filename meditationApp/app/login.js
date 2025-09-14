@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, SafeAreaView, Image, Alert, Text, TextInput, TouchableOpacity, Pressable } from "react-native";
+import { View, ScrollView, Image, Alert, Text, TextInput, TouchableOpacity, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router";
 import { COLORS, icons, SHADOWS, AppStyles } from "../constants";
@@ -15,18 +15,30 @@ const Login = () => {
             setLogInError("Please fill in all fields.");
             return;
         }
+
         const userDetails = { userInput, password, token: "sample-token" };
 
         try {
-            const detailsDatafromSignup = await AsyncStorage.getItem("userDetails");
-            if (detailsDatafromSignup) {
-                const parsedDetails = JSON.parse(detailsDatafromSignup);
-                if ((userDetails.userInput === parsedDetails.email || userDetails.userInput === parsedDetails.userName) 
-                    && userDetails.password === parsedDetails.password) {
-                    console.log('User Logged in : ', userDetails.userInput);
-                    router.push("/home");
+            // const detailsDatafromSignup = await AsyncStorage.getItem("userDetails");
+            var allUsersDetails = await AsyncStorage.getItem("allUsersDetails");
+            if (allUsersDetails) {
+                allUsersDetails = JSON.parse(allUsersDetails);
+                var currentUserDetails = allUsersDetails.find(item => (
+                  item.email === userDetails.userInput || item.userName === userDetails.userInput));
+                if(currentUserDetails){
+                  if (userDetails.password === currentUserDetails.password) {
+                      console.log('User Logged in : ', userDetails.userInput);
+                      currentUserDetails = JSON.stringify(currentUserDetails);
+                      await AsyncStorage.setItem("currentUserDetails", currentUserDetails);
+                      router.push({
+                        pathname: '/home',
+                        params: { currentUserDetails },
+                      });
+                  } else {
+                      setLogInError("Incorrect user or password.");
+                  }
                 } else {
-                    setLogInError("Incorrect user or password.");
+                  setLogInError("No user info found with these details.");
                 }
             } else {
                 setLogInError("No user info found with these details.");
@@ -37,7 +49,7 @@ const Login = () => {
     };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+    <ScrollView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
      <Stack.Screen
         options={{
           headerStyle: { backgroundColor: COLORS.lightWhite },
@@ -110,7 +122,7 @@ const Login = () => {
       <TouchableOpacity onPress={async () => await AsyncStorage.clear()}>
             <Text style={AppStyles.linkWords}>Clear Async Storage</Text>
         </TouchableOpacity>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

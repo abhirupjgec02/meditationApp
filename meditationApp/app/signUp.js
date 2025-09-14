@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   View,
-  SafeAreaView,
+  ScrollView,
   Image,
   Alert,
   TextInput,
@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router";
 import { COLORS, icons, SHADOWS, AppStyles } from "../constants";
 import { delay } from "../utils/delay";
+import { emailRegex, passwordRegex } from "../constants/stringVal";
 
 const SignUp = () => {
     const [userName, setUserName] = useState("");
@@ -42,37 +43,59 @@ const SignUp = () => {
         });
     }
 
+    async function handleUserCheck(item) {
+        if (item.email === email) {
+            if (item.name) {
+                setSignUpError("User already exists. Please log in instead.");
+                await delay(2000);
+                router.push("/login");
+            } else {
+                setSignUpError("User already exists. Please complete your registration.");
+                await delay(2000);
+                pushToRegistration(userName, email, password);
+            }
+            return true;
+        }
+        return false;
+    }
+
     const handleNext = async () => {
         if (!userName || !email || !password) {
             setSignUpError("Please fill in all fields.");
             return;
         }
 
-        var existingUserDetails = await AsyncStorage.getItem("userDetails");
-        if (existingUserDetails) {
-            existingUserDetails = JSON.parse(existingUserDetails);
-            // Check if the user is already registered
-            if (existingUserDetails.email === email) {
-                if(existingUserDetails.name){
-                    setSignUpError("User already exists. Please log in instead.");
-                    await delay(2000);
-                    router.push("/login");
-                } else {
-                    setSignUpError("User already exists. Please complete your registration.");
-                    await delay(2000);
-                    pushToRegistration(userName, email, password);
-                }
-            }
-        } else {
-            const userDetails = { userName, email, password, token: "sample-token" };
-            console.log("User trying to sign up: ", userDetails);
-            pushToRegistration(userName, email, password);
+        if (!emailRegex.test(email)) {
+            Alert.alert("Please enter a valid email address.");
+            return;
         }
+
+        if (!passwordRegex.test(password)) {
+            Alert.alert(
+                "Weak Password",
+                "Password must be at least 8 characters long and include at least 1 number and 1 special character."
+            );
+            return;
+        }
+
+        var allUsersDetails = await AsyncStorage.getItem("allUsersDetails");
+        if (allUsersDetails) {
+            allUsersDetails = JSON.parse(allUsersDetails);
+            console.log("All users details from AsyncStorage: ", allUsersDetails);
+            allUsersDetails.forEach(item => {
+                // Check if the user is already registered
+                if(handleUserCheck(item))
+                    return;
+            });
+        }
+        const userDetails = { userName, email, password, token: "sample-token" };
+        console.log("User trying to sign up: ", userDetails.email);
+        pushToRegistration(userName, email, password);
     };
 
     return (
             <>
-                <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite, }}>
+                <ScrollView style={{ flex: 1, backgroundColor: COLORS.lightWhite, }}>
                     <Stack.Screen
                         options={{
                             headerStyle: { backgroundColor: COLORS.lightWhite },
@@ -152,7 +175,7 @@ const SignUp = () => {
                     <TouchableOpacity onPress={async () => await AsyncStorage.clear()}>
                         <Text style={AppStyles.linkWords}>Clear Async Storage</Text>
                     </TouchableOpacity>
-                </SafeAreaView>
+                </ScrollView>
             </>
         )
 }

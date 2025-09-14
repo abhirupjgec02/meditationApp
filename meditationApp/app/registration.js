@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   View,
-  SafeAreaView,
+  ScrollView,
   Image,
   Alert,
   TextInput,
@@ -15,7 +15,7 @@ import { COLORS, icons, SHADOWS, AppStyles } from "../constants";
 const SignUp = () => {
     const { userName, email, password } = useLocalSearchParams();
     const [name, setName] = useState("");
-    const [sex, setSex] = useState("");
+    let [sex, setSex] = useState("");
     const [age, setAge] = useState("");
     const [country, setCountry] = useState("");
     const router = useRouter();
@@ -25,6 +25,22 @@ const SignUp = () => {
         if (!name || !sex || !age || !country) {
             setRegError("Please fill in all fields");
             return;
+        }
+        if(!/^[0-9]+$/.test(age)){
+            setRegError("Invalid age. Please enter a valid number.");
+            return;
+        }
+
+        if(sex.startsWith('M') || sex.startsWith('m')){
+            sex = 'Male';
+        } else if(sex.startsWith('F') || sex.startsWith('f')){
+            sex = 'Female';
+        } else if(sex.startsWith('T') || sex.startsWith('t')){
+            sex = 'Transgender';
+        } else if(sex.startsWith('S') || sex.startsWith('s')){
+            sex = 'Shemale';
+        } else {
+            sex = 'Unknown';
         }
 
         try {
@@ -38,9 +54,16 @@ const SignUp = () => {
                 country: country
             };
 
-        await AsyncStorage.setItem("userDetails", JSON.stringify(userData));
-        Alert.alert("Registration successful");
-        router.push("/login");
+            var allUsersDetails = await AsyncStorage.getItem("allUsersDetails");
+            if (allUsersDetails) {
+                allUsersDetails = JSON.parse(allUsersDetails);
+            } else {
+                allUsersDetails = [];
+            }
+            allUsersDetails.push(userData);
+            await AsyncStorage.setItem("allUsersDetails", JSON.stringify(allUsersDetails));
+            Alert.alert("Registration successful");
+            router.push("/login");
         } catch (error) {
             setRegError("Registration failed");
             console.error("Registration error:", error);
@@ -48,7 +71,7 @@ const SignUp = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+        <ScrollView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
             <Stack.Screen
                 options={{
                     headerStyle: { backgroundColor: COLORS.lightWhite },
@@ -113,7 +136,7 @@ const SignUp = () => {
                     </View>
                 </View>
             </View>
-        </SafeAreaView>
+        </ScrollView>
     );
 };
 

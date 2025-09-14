@@ -9,9 +9,9 @@ export default function Index() {
   useEffect(() => {
         const checkLoginState = async () => {
           try {
-            const user = await AsyncStorage.getItem("userDetails");
-            if (user) {
-              setIsLoggedIn(true);
+            var currentUserDetails = await AsyncStorage.getItem("currentUserDetails");
+            if (currentUserDetails) {
+                setIsLoggedIn(true);
             }
           } catch (error) {
             console.error("Error checking login state:", error);
