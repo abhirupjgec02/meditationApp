@@ -35,10 +35,10 @@ const Login = () => {
                       setLogInError("Incorrect user or password.");
                   }
                 } else {
-                  setLogInError("No user info found with these details.");
+                  setLogInError("Incorrect user or password.");
                 }
             } else {
-                setLogInError("No user info found with these details.");
+                setLogInError("Incorrect user or password.");
             }
         } catch (error) {
         console.error("Error accessing AsyncStorage", error);
