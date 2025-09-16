@@ -129,6 +129,18 @@ const AppStyles = StyleSheet.create({
     resizeMode: 'contain',
     backgroundColor: COLORS.lightWhite,
   },
+  settingIconImage: {
+    width: 55, 
+    height: 55,
+    resizeMode: 'contain',
+    backgroundColor: COLORS.lightWhite,
+  },
+  shareIconImage: {
+    width: 55, 
+    height: 55,
+    resizeMode: 'contain',
+    opacity: 0.3,
+  },
   btnContainer: {
     width: 80,
     height: 80,
@@ -293,12 +305,15 @@ const AppStyles = StyleSheet.create({
     },
     dailyMeditationCardsContainer: {
       marginTop: SIZES.medium,
-      gap: SIZES.small,
+      gap: SIZES.small, 
+      paddingHorizontal: 16, 
+      paddingVertical: 10
     },
     dailyMeditationCardContainer: {
       flex: 1,
       justifyContent: "center",
-      padding: SIZES.medium,
+      paddingHorizontal: 16,
+      paddingVertical: 10,
       borderRadius: SIZES.small,
       backgroundColor: "#FFF",
       ...SHADOWS.medium,

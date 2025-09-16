@@ -1,20 +1,40 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { SafeAreaView, ScrollView, View, TouchableOpacity, Text } from "react-native";
 import { COLORS, SIZES, AppStyles } from "../constants/theme";
 import { Stack, useRouter, useLocalSearchParams } from "expo-router";
 import ScreenHeaderBtn from "../components/ScreenHeaderBtn";
 import Welcome from "../components/Welcome";
 import PopularMeditation from "../components/PopularMeditation";
-import DailyMeditation from "../components/DailyMeditation";  
+import DailyMeditation from "../components/DailyMeditation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = () => {
+    const [currentUserDetails, setCurrentUserDetails] = useState(null);
     const router = useRouter();
-    var { currentUserDetails } = useLocalSearchParams();
-    currentUserDetails = JSON.parse(currentUserDetails);
+    useEffect(() => {
+      const checkLoginState = async () => {
+        try {
+          const data = await AsyncStorage.getItem("currentUserDetails");
+          if(data){
+            setCurrentUserDetails(JSON.parse(data));
+            console.log("current Username after useEffect : ", JSON.parse(data).userName);
+          }
+        } catch (error) {
+          console.error("Error checking login state:", error);
+          await AsyncStorage.clear();
+          router.push("/login");
+          return;
+        }
+      };
+      checkLoginState();
+    }, []);
+
     console.log("current Username in home : ", currentUserDetails?.userName);
+
+  if(currentUserDetails) {
     return (
      <>
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
         <ScreenHeaderBtn currentUserDetails={JSON.stringify(currentUserDetails)} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
@@ -32,10 +52,16 @@ const Home = () => {
               <DailyMeditation currUserDetails={null}/>
             </View>
           </View>
+          <TouchableOpacity onPress={async () => await AsyncStorage.clear()}>
+              <Text style={AppStyles.linkWords}>Clear Async Storage</Text>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
      </>
     );
-  };
+  } else {
+    return <></>;
+  }
+};
 
   export default Home;

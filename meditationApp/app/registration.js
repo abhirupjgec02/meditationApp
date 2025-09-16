@@ -55,12 +55,8 @@ const SignUp = () => {
             };
 
             var allUsersDetails = await AsyncStorage.getItem("allUsersDetails");
-            if (allUsersDetails) {
-                allUsersDetails = JSON.parse(allUsersDetails);
-            } else {
-                allUsersDetails = [];
-            }
-            allUsersDetails.push(userData);
+            allUsersDetails = allUsersDetails ? JSON.parse(allUsersDetails) : [];
+            allUsersDetails = [...allUsersDetails, userData];
             await AsyncStorage.setItem("allUsersDetails", JSON.stringify(allUsersDetails));
             Alert.alert("Registration successful");
             router.push("/login");

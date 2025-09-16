@@ -4,21 +4,22 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 export default function Index() {
+  let currentUserDetails = "";
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
         const checkLoginState = async () => {
           try {
-            var currentUserDetails = await AsyncStorage.getItem("currentUserDetails");
+            currentUserDetails = await AsyncStorage.getItem("currentUserDetails");
             if (currentUserDetails) {
+                console.log("User : "+JSON.parse(currentUserDetails).userName+" is already logged in");
                 setIsLoggedIn(true);
             }
           } catch (error) {
             console.error("Error checking login state:", error);
           }
           setIsLoading(false);
-        };
-    
+        };    
         checkLoginState();
       }, []);
       if (isLoading) {

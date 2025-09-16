@@ -32,7 +32,8 @@ const PopularMeditation = () => {
             style={AppStyles.popularContainer(selectedMeditation, item)}
             onPress={() => handleCardPress(item)}
         >
-            <TouchableOpacity style={AppStyles.logoContainer(selectedMeditation, item)}>
+            <TouchableOpacity style={AppStyles.logoContainer(selectedMeditation, item)} 
+                    onPress={() => handleCardPress(item)}>
                 <Image
                     source={{ uri: item?.image }}
                     resizeMode="cover"

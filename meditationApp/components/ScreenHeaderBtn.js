@@ -20,13 +20,13 @@ const ScreenHeaderBtn = ({detailPage, handleShare, currentUserDetails}) => {
                 {detailPage?
                 <>
                     <TouchableOpacity style={AppStyles.btnContainer} onPress={handleShare}>
-                        <Image source={icons.share} style={AppStyles.image} />
+                        <Image source={icons.share} style={AppStyles.shareIconImage} />
                     </TouchableOpacity>
                 </>  
                 :
                 <>
                     <TouchableOpacity style={AppStyles.btnContainer} onPress={()=>router.push("/settings")}>
-                        <Image source={icons.settings} style={AppStyles.image} />
+                        <Image source={icons.settings} style={AppStyles.settingIconImage} />
                     </TouchableOpacity>
                 </>
                 }

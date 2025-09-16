@@ -28,7 +28,7 @@ const DailyMeditation = ({ meditations }) => {
   return (
     <View style={AppStyles.container}>
       <View style={AppStyles.header}>
-        <Text style={AppStyles.headerTitle}>Daily Meditation</Text>
+        <Text style={AppStyles.headerTitle}>Daily Meditations</Text>
       </View>
 
       <View style={AppStyles.dailyMeditationCardsContainer}>
@@ -48,6 +48,7 @@ const DailyMeditation = ({ meditations }) => {
                   source={{ uri: meditation.image }}
                   resizeMode="cover"
                   style={AppStyles.dailyMeditationLogoImage}
+                  onPress={() => handleNavigate(meditation.id)}
                 />
               </View>
 

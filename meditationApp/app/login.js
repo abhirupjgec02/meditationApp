@@ -19,7 +19,6 @@ const Login = () => {
         const userDetails = { userInput, password, token: "sample-token" };
 
         try {
-            // const detailsDatafromSignup = await AsyncStorage.getItem("userDetails");
             var allUsersDetails = await AsyncStorage.getItem("allUsersDetails");
             if (allUsersDetails) {
                 allUsersDetails = JSON.parse(allUsersDetails);
@@ -30,10 +29,8 @@ const Login = () => {
                       console.log('User Logged in : ', userDetails.userInput);
                       currentUserDetails = JSON.stringify(currentUserDetails);
                       await AsyncStorage.setItem("currentUserDetails", currentUserDetails);
-                      router.push({
-                        pathname: '/home',
-                        params: { currentUserDetails },
-                      });
+                      router.push('/home');
+                      return;
                   } else {
                       setLogInError("Incorrect user or password.");
                   }
