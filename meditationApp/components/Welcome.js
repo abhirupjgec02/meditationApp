@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import { COLORS, FONT, SIZES, AppStyles } from "../constants/theme";
 
 
-const Welcome = ({ currUserDetails }) => {
+const Welcome = ({ currUserDetails, isDarkMode }) => {
     console.log("current Username in welcome : ", currUserDetails?.userName);
     return (
       <>

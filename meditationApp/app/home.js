@@ -7,9 +7,11 @@ import Welcome from "../components/Welcome";
 import PopularMeditation from "../components/PopularMeditation";
 import DailyMeditation from "../components/DailyMeditation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DailyQuote from "../components/DailyQuote";
 
 const Home = () => {
     const [currentUserDetails, setCurrentUserDetails] = useState(null);
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const router = useRouter();
     useEffect(() => {
       const checkLoginState = async () => {
@@ -44,7 +46,8 @@ const Home = () => {
             }}
             testID="screensDisplay"
           >
-            <Welcome currUserDetails={currentUserDetails ? currentUserDetails : null} />
+            <Welcome currUserDetails={currentUserDetails ? currentUserDetails : null} isDarkMode={isDarkMode} />
+            <DailyQuote/>
             <View style={{ marginBottom: 20 }}>
               <PopularMeditation/>
             </View>
