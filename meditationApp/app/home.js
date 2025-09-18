@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, View, TouchableOpacity, Text } from "react-native";
 import { COLORS, SIZES, AppStyles } from "../constants/theme";
-import { Stack, useRouter, useLocalSearchParams } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import ScreenHeaderBtn from "../components/ScreenHeaderBtn";
 import Welcome from "../components/Welcome";
 import PopularMeditation from "../components/PopularMeditation";
@@ -46,7 +46,7 @@ const Home = () => {
             }}
             testID="screensDisplay"
           >
-            <Welcome currUserDetails={currentUserDetails ? currentUserDetails : null} isDarkMode={isDarkMode} />
+            <Welcome currUserDetails={currentUserDetails ? currentUserDetails : null} isDarkMode={isDarkMode} useCaption={true} />
             <DailyQuote/>
             <View style={{ marginBottom: 20 }}>
               <PopularMeditation/>

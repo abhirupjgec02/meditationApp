@@ -1,32 +1,14 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-
+import { View, Text, Image } from "react-native";
 import styles from "./MeditationTopDisplay.style";
 import { icons } from "../../constants";
-import { useRouter, useNavigation } from "expo-router";
+import BackButton from "../BackButton";
 
 const MeditationTopDisplay = ({ meditationImage, meditationTitle, duration, target }) => {
-    const router = useRouter();
-    const navigation = useNavigation();
-
-    const handleGoBack = () => {
-        if (navigation.canGoBack()) {
-            router.back();
-        } else {
-            console.log("Can't go back. Redirecting to home.");
-            router.replace("/home");  // fallback route
-        }
-    }
 
     return (
         <View>
-            <TouchableOpacity onPress={() => handleGoBack()}>
-                <Image
-                    source={icons.left}
-                    resizeMode="cover"
-                    style={styles.backIcon}
-                />
-            </TouchableOpacity>
+            <BackButton/>
             <View style={styles.container}>
                 <View style={styles.logoBox}>
                 <Image
