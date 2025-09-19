@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 
-const DailyQuote = () => {
+const DailyQuote = ({isDarkMode}) => {
     const [quote, setQuote] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -42,7 +42,7 @@ const DailyQuote = () => {
                 <ActivityIndicator size="small" color="#0000ff" />
             ) : (
             <>
-                <Text style={styles.quoteText}>"{quote}"</Text>
+                <Text style={styles.quoteText(isDarkMode)}>"{quote}"</Text>
             </>
             )}
         </View>
@@ -60,10 +60,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5,
   },
-  quoteText: {
+  quoteText: (isDarkMode) => ({
     fontSize: 18,
     fontStyle: 'italic',
     marginBottom: 10,
     textAlign: 'center',
-  },
+    color: isDarkMode ? '#f9f57eff' : '#000000',
+  }),
 });

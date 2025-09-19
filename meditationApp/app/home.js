@@ -8,11 +8,15 @@ import PopularMeditation from "../components/PopularMeditation";
 import DailyMeditation from "../components/DailyMeditation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DailyQuote from "../components/DailyQuote";
+import { useTheme } from "../context/ThemeProvider";
 
 const Home = () => {
     const [currentUserDetails, setCurrentUserDetails] = useState(null);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const router = useRouter();
+    const { theme, toggleTheme } = useTheme();
+    console.log('theme', theme);
+
     useEffect(() => {
       const checkLoginState = async () => {
         try {
@@ -29,15 +33,16 @@ const Home = () => {
         }
       };
       checkLoginState();
-    }, []);
+      setIsDarkMode(theme === "dark");
+    }, [theme]);
 
     console.log("current Username in home : ", currentUserDetails?.userName);
 
   if(currentUserDetails) {
     return (
      <>
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
-        <ScreenHeaderBtn currentUserDetails={JSON.stringify(currentUserDetails)} />
+      <SafeAreaView style={{ flex: 1, backgroundColor: isDarkMode ? COLORS.darkBackground : '#F9F9F9' }}>
+        <ScreenHeaderBtn isDarkMode={isDarkMode} currentUserDetails={JSON.stringify(currentUserDetails)} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
@@ -47,12 +52,12 @@ const Home = () => {
             testID="screensDisplay"
           >
             <Welcome currUserDetails={currentUserDetails ? currentUserDetails : null} isDarkMode={isDarkMode} useCaption={true} />
-            <DailyQuote/>
-            <View style={{ marginBottom: 20 }}>
-              <PopularMeditation/>
+            <DailyQuote isDarkMode={isDarkMode}/>
+            <View style={{ marginBottom: 10 }}>
+              <PopularMeditation isDarkMode={isDarkMode}/>
             </View>
-            <View style={{ marginBottom: 20 }}>
-              <DailyMeditation currUserDetails={null}/>
+            <View style={{ marginBottom: 10 }}>
+              <DailyMeditation isDarkMode={isDarkMode}/>
             </View>
           </View>
           <TouchableOpacity onPress={async () => await AsyncStorage.clear()}>

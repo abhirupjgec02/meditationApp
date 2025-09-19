@@ -13,7 +13,7 @@ import {
 
 import useFetch from "../hook/useFetch";
 
-const PopularMeditation = () => {
+const PopularMeditation = ({isDarkMode}) => {
     const router = useRouter();
     const { data, isLoading, error } = useFetch("search", {
       query: "React developer",
@@ -64,8 +64,8 @@ const PopularMeditation = () => {
     );
   
     return(
-    <>
-        <View style={AppStyles.container} testID="popularContainer">
+    <View style={{backgroundColor: isDarkMode ? COLORS.darkBackground : '#F9F9F9'}}>
+        <View style={isDarkMode ? AppStyles.darkContainer : AppStyles.container} testID="popularContainer">
             <View style={AppStyles.header} testID="popularHeader">
                 <Text style={AppStyles.headerTitle}>Popular Meditations</Text>
                 <TouchableOpacity></TouchableOpacity>
@@ -87,7 +87,7 @@ const PopularMeditation = () => {
                 />
             )}
         </View>
-    </>
+    </View>
    )
   };
   

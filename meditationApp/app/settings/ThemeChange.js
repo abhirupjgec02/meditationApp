@@ -26,8 +26,8 @@ const ThemeChange = () => {
                 <ScreenHeaderBtn/>
                 <View
                     style={{
-                    flex: 1,
-                    padding: 10,
+                        flex: 1,
+                        padding: 10,
                     }}
                     testID="screensDisplay"
                 >

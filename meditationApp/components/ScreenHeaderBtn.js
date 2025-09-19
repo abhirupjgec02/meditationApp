@@ -4,12 +4,12 @@ import { COLORS, SIZES, AppStyles } from "../constants/theme";
 import icons from "../constants/icons";
 import {  useRouter } from "expo-router";
 
-const ScreenHeaderBtn = ({detailPage, handleShare}) => {
+const ScreenHeaderBtn = ({detailPage, handleShare, isDarkMode}) => {
     console.log(detailPage);
     const router=useRouter();
     return (
         <>
-            <View style={AppStyles.btn}>
+            <View style={AppStyles.btn(isDarkMode)}>
                 <TouchableOpacity style={AppStyles.btnContainer} onPress={()=>router.push('/home')}>
                     <Image source={icons.menu} style={AppStyles.image} />
                 </TouchableOpacity>

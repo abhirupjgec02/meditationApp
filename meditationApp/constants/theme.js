@@ -58,6 +58,13 @@ const AppStyles = StyleSheet.create({
     paddingTop: 20, // space from top of screen
     backgroundColor: '#F9F9F9',
   },
+  darkContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 20, // space from top of screen
+    backgroundColor: '#000000ff',
+  },
   logo: {
     width: 350,
     height: 350,
@@ -115,12 +122,13 @@ const AppStyles = StyleSheet.create({
     color: '#000000',
     fontSize: 18,
   },
-  btn: {
+  btn: (isDarkMode) => ({
     flexDirection: 'row', 
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     width: '100vw', 
-  },
+    backgroundColor: isDarkMode ? COLORS.darkBackground : "#F9F9F9",
+  }),
   image: {
     width: 80, 
     height: 80,
@@ -197,13 +205,13 @@ const AppStyles = StyleSheet.create({
     width: "100%",
     marginTop: SIZES.medium,
   },
-  welcomeMessageContainer: {
+  welcomeMessageContainer: (isDarkMode) => ({
     marginBottom: 10,
     alignItems: 'flex-start',
     justifyContent: 'center',
     paddingTop: 8, // space from top of screen
-    backgroundColor: '#F9F9F9',
-  },
+    backgroundColor: isDarkMode ? '#010000ff' : '#F9F9F9',
+  }),
   popularContainer: (selectedMeditation, item) => ({
       width: 270,
       padding: 5,
@@ -322,6 +330,32 @@ const AppStyles = StyleSheet.create({
       width: '100%',
       height: 180,
       borderRadius: SIZES.medium,
+    },
+    profileMenuView : { 
+          flexDirection: "row", justifyContent: "space-between", 
+          alignItems: "center", marginBottom: 10,
+          padding: SIZES.medium,
+          borderRadius: SIZES.small,
+          backgroundColor: "#E0FDF9",
+          ...SHADOWS.medium, 
+    },
+    profileMenuItemName : {
+        flexDirection: "row", 
+        justifyContent: "space-between",
+    },
+    profileModificationButton: {
+      backgroundColor: '#2e05a8ff',
+      padding: 2,
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: 'center',
+      width: '18%',
+    },
+    profileModificationButtonText: { 
+      color: "#f5f53cff",
+      fontWeight: "bold",
+      fontSize: 14,
+      paddingBottom: 4,
     },
 });
   

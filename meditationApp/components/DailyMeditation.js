@@ -11,7 +11,7 @@ import {
 import { COLORS, FONT, SIZES, SHADOWS, AppStyles } from "../constants/theme";
 import useFetch from "../hook/useFetch";
 
-const DailyMeditation = ({ meditations }) => {
+const DailyMeditation = ({ meditations, isDarkMode }) => {
   const router = useRouter();
 
   const { isLoading, error, bestMeditations } = useFetch("search", {
@@ -26,7 +26,7 @@ const DailyMeditation = ({ meditations }) => {
   const data = meditations || bestMeditations;
 
   return (
-    <View style={AppStyles.container}>
+    <View style={isDarkMode ? AppStyles.darkContainer : AppStyles.container}>
       <View style={AppStyles.header}>
         <Text style={AppStyles.headerTitle}>Daily Meditations</Text>
       </View>

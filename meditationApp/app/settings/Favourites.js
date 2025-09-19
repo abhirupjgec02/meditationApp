@@ -36,7 +36,7 @@ const Favourites = () => {
     );
 
     return(
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.darkBackground }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#F9F9F9" }}>
             <ScreenHeaderBtn/>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.container}>
@@ -46,8 +46,18 @@ const Favourites = () => {
                     <Text style={styles.headerTitle}>No favorite items found.</Text>
                 ) : (
                     <>
-                        <Text style={{ textAlign: "center", color: "#FF4500", fontWeight: "bold" }}>My Favourite Exercises</Text>
-                        <DailyMeditation meditations={favorites} />
+                        <Text style={{ 
+                                textAlign: "center", 
+                                color: "#777770", 
+                                fontWeight: "bold", 
+                                opacity: 0.75, 
+                                fontSize: 20 
+                            }}>
+                            My Favourite Exercises
+                        </Text>
+                        <View style={{ marginBottom: 10 }}>
+                            <DailyMeditation meditations={favorites} />
+                        </View>
                     </>
                 )}
                 </View>

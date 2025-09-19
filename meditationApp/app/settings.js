@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Image } from "react-native";
+import { View, Text, TouchableOpacity, Alert, SafeAreaView, ScrollView, Image } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons"; // Install: npm install react-native-vector-icons
 import ScreenHeaderBtn from "../components/ScreenHeaderBtn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -39,13 +39,36 @@ export default function Settings() {
             title: "My Profile",
             icon: "../assets/icons/profile.png",
             target: "Mental Health",
-            route: "MyProfile",
+            route: "Profile",
         },
     ];
 
-    const handleLogout = async () => {
+    const makeLogOut = async() => {
         await AsyncStorage.removeItem("currentUserDetails");
         router.push("/login");
+    } 
+
+    const handleLogout = () => {
+        Alert.alert(
+            "Confirm Logout",
+            "Are you sure you want to log out?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Logout canceled"),
+                    style: "cancel",
+                },
+                {
+                    text: "Yes, Logout",
+                    onPress: () => {
+                        // 👉 Place your logout logic here
+                        makeLogOut();
+                        console.log("User logged out");
+                    },
+                },
+            ],
+            { cancelable: true }
+        );
     };
 
     useEffect(() => {

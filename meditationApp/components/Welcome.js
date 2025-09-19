@@ -6,8 +6,8 @@ const Welcome = ({ currUserDetails, isDarkMode, useCaption }) => {
     console.log("current Username in welcome : ", currUserDetails?.userName);
     return (
       <>
-         <View>
-            <View style={AppStyles.welcomeMessageContainer} testID="styles.container">
+         <View style={{ flex: 1, backgroundColor: isDarkMode ? COLORS.darkBackground : '#F9F9F9' }}>
+            <View style={AppStyles.welcomeMessageContainer(isDarkMode)} testID="styles.container">
                 <Text style={AppStyles.userName}>Hello {currUserDetails?.userName}!</Text>
                 { useCaption ? <Text style={AppStyles.welcomeMessage}>Find your perfect meditation</Text> : null }
             </View>
