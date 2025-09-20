@@ -12,6 +12,7 @@ import { COLORS, FONT, SIZES } from "../../constants";
 import DailyMeditation from "../../components/DailyMeditation";
 import { useFocusEffect } from "expo-router";
 import ScreenHeaderBtn from '../../components/ScreenHeaderBtn'
+import BackButton from "../../components/BackButton";
 
 const Favourites = () => {
     const [favorites, setFavorites] = useState([]);
@@ -40,26 +41,27 @@ const Favourites = () => {
             <ScreenHeaderBtn/>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.container}>
-                {isLoading ? (
-                    <ActivityIndicator size="large" color={COLORS.primary} />
-                ) : favorites.length === 0 ? (
-                    <Text style={styles.headerTitle}>No favorite items found.</Text>
-                ) : (
-                    <>
-                        <Text style={{ 
-                                textAlign: "center", 
-                                color: "#777770", 
-                                fontWeight: "bold", 
-                                opacity: 0.75, 
-                                fontSize: 20 
-                            }}>
-                            My Favourite Exercises
-                        </Text>
-                        <View style={{ marginBottom: 10 }}>
-                            <DailyMeditation meditations={favorites} />
-                        </View>
-                    </>
-                )}
+                    <BackButton/>
+                    {isLoading ? (
+                        <ActivityIndicator size="large" color={COLORS.primary} />
+                    ) : favorites.length === 0 ? (
+                        <Text style={styles.headerTitle}>No favorite items found.</Text>
+                    ) : (
+                        <>
+                            <Text style={{ 
+                                    textAlign: "center", 
+                                    color: "#777770", 
+                                    fontWeight: "bold", 
+                                    opacity: 0.75, 
+                                    fontSize: 20 
+                                }}>
+                                My Favourite Exercises
+                            </Text>
+                            <View style={{ marginBottom: 10 }}>
+                                <DailyMeditation meditations={favorites} />
+                            </View>
+                        </>
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>
