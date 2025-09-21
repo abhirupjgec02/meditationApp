@@ -60,9 +60,9 @@ const Home = () => {
               <DailyMeditation isDarkMode={isDarkMode}/>
             </View>
           </View>
-          <TouchableOpacity onPress={async () => await AsyncStorage.clear()}>
+          {/* <TouchableOpacity onPress={async () => await AsyncStorage.clear()}>
               <Text style={AppStyles.linkWords}>Clear Async Storage</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </ScrollView>
       </SafeAreaView>
      </>

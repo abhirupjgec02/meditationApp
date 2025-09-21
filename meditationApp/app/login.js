@@ -116,9 +116,9 @@ const Login = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity onPress={async () => await AsyncStorage.clear()}>
+      {/* <TouchableOpacity onPress={async () => await AsyncStorage.clear()}>
             <Text style={AppStyles.linkWords}>Clear Async Storage</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
     </ScrollView>
   );
 };
